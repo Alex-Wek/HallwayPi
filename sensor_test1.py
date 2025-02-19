@@ -6,15 +6,18 @@ import serial
 # Checked with TFmini plus
 
 # ser = serial.Serial("/dev/ttyUSB1", 115200)
-
-ser = serial.Serial("/dev/serial0", 115200)
+ser = serial.Serial("/dev/serial0", 115200, timeout=1)
+#ser = serial.Serial("/dev/serial0", 115200)
 # ser = serial.Serial("COM12", 115200)
 
+#sensor2_port = "/dev/ttyUSB0"
+#ser = serial.Serial(sensor2_port, 115200, timeout=1)
 
 # we define a new function that will get the data from LiDAR and publish it
 def read_data():
     while True:
         counter = ser.in_waiting # count the number of bytes of the serial port
+        #print(counter)
         if counter > 8:
             bytes_serial = ser.read(9)
             ser.reset_input_buffer()
