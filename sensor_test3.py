@@ -1,4 +1,3 @@
-import board
 import neopixel
 import time
 import keyboard
@@ -40,19 +39,10 @@ def keyboardLED(color, index):
         strip.show()
     return index
 try:
-    #index = 0
-    #while True:
-        #index = ((0,0,255), index)
+    event = keyboard.read_event()
     while True:
-        print("in the loop index = ")
-        #Example: Set all LEDs to green
-        set_color((0, 255, 50))
-        time.sleep(1)
-
-        # Example: Run an animation
-        animate()
-        time.sleep(1)
-        #index = keyboardLED((0,0,255), index)
+        print(event)
+      
 
 except KeyboardInterrupt:
     # Turn off all LEDs on exit

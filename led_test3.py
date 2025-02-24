@@ -1,7 +1,7 @@
-import board
 import neopixel
 import time
 import keyboard
+import board
 
 # LED strip configuration
 LED_COUNT = 35         # Number of LEDs in your strip
@@ -11,6 +11,10 @@ LED_ORDER = neopixel.GRB  # Color order of the LEDs
 
 # Initialize the LED strip
 strip = neopixel.NeoPixel(LED_PIN, LED_COUNT, brightness=LED_BRIGHTNESS, auto_write=False, pixel_order=LED_ORDER)
+
+index = 0
+bg = (0, 255, 50)
+target =  (255,0,0)
 
 def set_color(color):
     """Set all LEDs to the same color."""
@@ -40,19 +44,20 @@ def keyboardLED(color, index):
         strip.show()
     return index
 try:
-    #index = 0
-    #while True:
-        #index = ((0,0,255), index)
+    
     while True:
-        print("in the loop index = ")
-        #Example: Set all LEDs to green
-        set_color((0, 255, 50))
-        time.sleep(1)
-
-        # Example: Run an animation
-        animate()
-        time.sleep(1)
-        #index = keyboardLED((0,0,255), index)
+        event = keyboard.read_event()
+        if event.name == "d" and index < LED_COUNT - 1:
+            index+=1 
+            print("right")
+        if event.name == "a" and index > 0:
+            index-=1
+            print("left")
+        strip.fill(bg)
+        strip[index] = target
+        strip.show()
+        time.sleep(0.2)
+      
 
 except KeyboardInterrupt:
     # Turn off all LEDs on exit
